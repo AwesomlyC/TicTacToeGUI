@@ -187,6 +187,7 @@ namespace TicTacToeGUI {
 			// label1
 			// 
 			this->label1->AutoSize = true;
+			this->label1->BackColor = System::Drawing::Color::Silver;
 			this->label1->Font = (gcnew System::Drawing::Font(L"PMingLiU-ExtB", 36, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
 			this->label1->Location = System::Drawing::Point(180, 26);
@@ -208,14 +209,16 @@ namespace TicTacToeGUI {
 			// 
 			// button10
 			// 
+			this->button10->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(255)), static_cast<System::Int32>(static_cast<System::Byte>(128)),
+				static_cast<System::Int32>(static_cast<System::Byte>(128)));
 			this->button10->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 15.75F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
-			this->button10->Location = System::Drawing::Point(579, 395);
+			this->button10->Location = System::Drawing::Point(574, 368);
 			this->button10->Name = L"button10";
 			this->button10->Size = System::Drawing::Size(287, 94);
 			this->button10->TabIndex = 12;
 			this->button10->Text = L"Reset Game";
-			this->button10->UseVisualStyleBackColor = true;
+			this->button10->UseVisualStyleBackColor = false;
 			this->button10->Click += gcnew System::EventHandler(this, &MyForm::button10_Click);
 			// 
 			// panel1
@@ -251,7 +254,7 @@ namespace TicTacToeGUI {
 			// 
 			this->label5->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 15.75F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
-			this->label5->Location = System::Drawing::Point(175, 30);
+			this->label5->Location = System::Drawing::Point(163, 30);
 			this->label5->Name = L"label5";
 			this->label5->Size = System::Drawing::Size(59, 34);
 			this->label5->TabIndex = 15;
@@ -273,11 +276,11 @@ namespace TicTacToeGUI {
 			// 
 			this->label6->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 21.75F, System::Drawing::FontStyle::Underline, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
-			this->label6->Location = System::Drawing::Point(669, 106);
+			this->label6->Location = System::Drawing::Point(633, 106);
 			this->label6->Name = L"label6";
-			this->label6->Size = System::Drawing::Size(82, 43);
+			this->label6->Size = System::Drawing::Size(174, 43);
 			this->label6->TabIndex = 18;
-			this->label6->Text = L"Wins";
+			this->label6->Text = L"Scoreboard";
 			this->label6->Click += gcnew System::EventHandler(this, &MyForm::label6_Click);
 			// 
 			// MyForm
@@ -310,7 +313,7 @@ namespace TicTacToeGUI {
 		}
 #pragma endregion
 		bool checker;
-		int plusone;
+		int counter;
 
 		void solve(System::String^ player) {
 			// Possible Win Conditions
@@ -318,18 +321,22 @@ namespace TicTacToeGUI {
 				button1->BackColor = System::Drawing::Color::Aqua;
 				button2->BackColor = System::Drawing::Color::Aqua;
 				button3->BackColor = System::Drawing::Color::Aqua;
+				updateCounter(player);
 				MessageBox::Show("THE WINNER IS " + player,"Tic-Tac-Toe", MessageBoxButtons::OK, MessageBoxIcon::Information);
+			
 			}
 			if (button4->Text == player && button5->Text == player && button6->Text == player) {
 				button4->BackColor = System::Drawing::Color::Aqua;
 				button5->BackColor = System::Drawing::Color::Aqua;
 				button6->BackColor = System::Drawing::Color::Aqua;
+				updateCounter(player);
 				MessageBox::Show("THE WINNER IS " + player, "Tic-Tac-Toe", MessageBoxButtons::OK, MessageBoxIcon::Information);
 			}
 			if (button7->Text == player && button8->Text == player && button9->Text == player) {
 				button7->BackColor = System::Drawing::Color::Aqua;
 				button8->BackColor = System::Drawing::Color::Aqua;
 				button9->BackColor = System::Drawing::Color::Aqua;
+				updateCounter(player);
 				MessageBox::Show("THE WINNER IS " + player, "Tic-Tac-Toe", MessageBoxButtons::OK, MessageBoxIcon::Information);
 			}
 
@@ -337,18 +344,21 @@ namespace TicTacToeGUI {
 				button1->BackColor = System::Drawing::Color::Aqua;
 				button4->BackColor = System::Drawing::Color::Aqua;
 				button7->BackColor = System::Drawing::Color::Aqua;
+				updateCounter(player);
 				MessageBox::Show("THE WINNER IS " + player, "Tic-Tac-Toe", MessageBoxButtons::OK, MessageBoxIcon::Information);
 			}
 			if (button2->Text == player && button5->Text == player && button8->Text == player) {
 				button2->BackColor = System::Drawing::Color::Aqua;
 				button5->BackColor = System::Drawing::Color::Aqua;
 				button8->BackColor = System::Drawing::Color::Aqua;
+				updateCounter(player);
 				MessageBox::Show("THE WINNER IS " + player, "Tic-Tac-Toe", MessageBoxButtons::OK, MessageBoxIcon::Information);
 			}
 			if (button3->Text == player && button6->Text == player && button9->Text == player) {
 				button3->BackColor = System::Drawing::Color::Aqua;
 				button6->BackColor = System::Drawing::Color::Aqua;
 				button9->BackColor = System::Drawing::Color::Aqua;
+				updateCounter(player);
 				MessageBox::Show("THE WINNER IS " + player, "Tic-Tac-Toe", MessageBoxButtons::OK, MessageBoxIcon::Information);
 			}
 
@@ -356,12 +366,14 @@ namespace TicTacToeGUI {
 				button1->BackColor = System::Drawing::Color::Aqua;
 				button5->BackColor = System::Drawing::Color::Aqua;
 				button9->BackColor = System::Drawing::Color::Aqua;
+				updateCounter(player);
 				MessageBox::Show("THE WINNER IS " + player, "Tic-Tac-Toe", MessageBoxButtons::OK, MessageBoxIcon::Information);
 			}
 			if (button3->Text == player && button5->Text == player && button7->Text == player) {
 				button3->BackColor = System::Drawing::Color::Aqua;
 				button5->BackColor = System::Drawing::Color::Aqua;
 				button7->BackColor = System::Drawing::Color::Aqua;
+				updateCounter(player);
 				MessageBox::Show("THE WINNER IS " + player, "Tic-Tac-Toe", MessageBoxButtons::OK, MessageBoxIcon::Information);
 			}
 			draw(player);
@@ -372,6 +384,15 @@ namespace TicTacToeGUI {
 				button4->Enabled == false && button5->Enabled == false && button6->Enabled == false &&
 				button7->Enabled == false && button8->Enabled == false && button9->Enabled == false)
 				MessageBox::Show("IT IS A DRAW!", "Tic-Tac-Toe", MessageBoxButtons::OK, MessageBoxIcon::Information);
+		}
+		
+		void updateCounter(System::String^ player){
+			if (player == "X") {
+				label5->Text = Convert::ToString(int::Parse(label5->Text) + 1);
+			}
+			else {
+				label6->Text = Convert::ToString(int::Parse(label6->Text) + 1);
+			}
 		}
 
 // ================================================================================ // 
